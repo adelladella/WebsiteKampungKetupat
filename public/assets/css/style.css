@@ -501,13 +501,12 @@ a {
   opacity: 0.6;
 }
 
-/* ===== GALERI  ===== */
+/* ===== GALERI SECTION ===== */
 .kk-galeri {
   padding: 110px 0;
   background: #fff;
 }
 
-/* HEADER */
 .kk-galeri-header {
   margin-bottom: 50px;
 }
@@ -547,7 +546,6 @@ a {
   margin-top: 10px;
 }
 
-/* GRID */
 .kk-grid {
   gap: 20px 0;
 }
@@ -589,113 +587,106 @@ a {
   font-size: .92rem;
 }
 
-.gallery-wrap {
-  transition: all 0.4s ease;
-}
 
-.gallery-wrap.hide {
-  opacity: 0;
-  transform: scale(0.95);
-  pointer-events: none;
-  display: none;
-  transition: all 0.3s ease;
-}
-
-.gallery-wrap.hide.done {
-  display: none;
-}
-
-.gallery-wrap.show {
-  opacity: 1;
-  transform: scale(1);
-}
-.gallery-wrap {
-  transition: all 0.4s ease;
-}
-
-.gallery-wrap.show {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* =========================
-   ANIMASI MASUK (STAGGER)
-========================= */
-
-.gallery-wrap {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.gallery-wrap.animate {
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* =========================
+/* ============================================================
    LIGHTBOX
-========================= */
-
+   ============================================================ */
 .lightbox {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: rgba(0,0,0,0.85);
-
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+}
 
-  z-index: 9999;
-  animation: fadeIn 0.3s ease;
+.lightbox-inner {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 580px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.lightbox-close:hover {
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .lightbox-img {
-  max-width: 85%;
-  max-height: 85%;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.lightbox-caption {
+  padding: 20px 24px 24px;
+  overflow-y: auto;
 }
 
-.lightbox-img {
-  animation: zoomIn 0.3s ease;
+.lightbox-badge {
+  display: inline-block;
+  background: #e8f5ee;
+  color: #2d7a4f;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 999px;
+  text-transform: capitalize;
+  margin-bottom: 10px;
 }
 
-@keyframes zoomIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+.lightbox-judul {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  word-break: break-word;
 }
 
-.reveal {
+.lightbox-desc {
+  font-size: 0.88rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.75;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* Transition Vue */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  transform: translateY(60px) scale(0.96);
-  filter: blur(6px);
-
-  transition: 
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.6s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
 }
 
 /* BUTTON */
@@ -2041,3 +2032,103 @@ FOOTER FINAL CLEAN
   transform: translateX(5px);
 }
 
+
+
+/* ============================================================
+   GALLERY FIX — TARUH DI PALING BAWAH
+   ============================================================ */
+.gallery-wrap {
+  opacity: 0 !important;
+  transform: translateY(24px) !important;
+  transition: opacity 0.45s ease, transform 0.45s ease !important;
+}
+
+.gallery-wrap.active {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.gallery-card {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  position: relative !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.gallery-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.15) !important;
+}
+
+.gallery-img-wrap {
+  position: relative !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 240px !important;
+  aspect-ratio: unset !important;
+}
+
+.gallery-img-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.45s ease !important;
+}
+
+.gallery-card:hover .gallery-img-wrap img {
+  transform: scale(1.08) !important;
+}
+
+/* HOVER OVERLAY FIX */
+.gallery-hover-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(30, 90, 55, 0.65) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  transition: opacity 0.35s ease !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+.gallery-card:hover .gallery-hover-overlay {
+  opacity: 1 !important;
+}
+
+.gallery-hover-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 10px !important;
+  transform: translateY(10px) !important;
+  transition: transform 0.35s ease !important;
+}
+
+.gallery-card:hover .gallery-hover-content {
+  transform: translateY(0) !important;
+}
+
+.gallery-hover-icon {
+  width: 56px !important;
+  height: 56px !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 2px solid rgba(255, 255, 255, 0.7) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #fff !important;
+  font-size: 1.4rem !important;
+}
+
+.gallery-hover-text {
+  color: #fff !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
+}

@@ -184,9 +184,6 @@ if (document.getElementById("app-galeri")) {
             <!-- IMAGE -->
             <div class="gallery-img-wrap">
               <img :src="imgUrl(item.foto)" :alt="item.judul" />
-              <div class="gallery-img-overlay">
-                <i class="bi bi-zoom-in"></i>
-              </div>
               <div class="gallery-hover-overlay">
                 <div class="gallery-hover-content">
                   <div class="gallery-hover-icon">
@@ -809,50 +806,3 @@ if (document.getElementById("app-umkm")) {
     `,
   }).mount("#app-umkm");
 }
-
-// ============================================================
-// ADMIN GALERI — Search, Filter, Toggle, Stats Real-time
-// ============================================================
-document.addEventListener("DOMContentLoaded", function () {
-  const searchInput = document.getElementById("searchInput");
-  const filterSelect = document.getElementById("filterKategori");
-  const items = document.querySelectorAll(".galeri-item");
-  const statPublish = document.getElementById("publish");
-  const statHidden = document.getElementById("hidden");
-
-  // ----------------------------------------------------------
-  // SEARCH & FILTER
-  // ----------------------------------------------------------
-  function filterGaleri() {
-    const keyword = (searchInput?.value || "").trim().toLowerCase();
-    const kategori = (filterSelect?.value || "").toLowerCase();
-
-    items.forEach(function (item) {
-      const judul = item.dataset.judul || "";
-      const kat = item.dataset.kategori || "";
-
-      const matchSearch = !keyword || judul.includes(keyword);
-      const matchKategori = !kategori || kat === kategori;
-
-      item.style.display = matchSearch && matchKategori ? "" : "none";
-    });
-  }
-
-  searchInput?.addEventListener("input", filterGaleri);
-  filterSelect?.addEventListener("change", filterGaleri);
-
-  // ----------------------------------------------------------
-  // UPDATE STATS REAL-TIME
-  // ----------------------------------------------------------
-  function updateStats() {
-    let publish = 0;
-    let hidden = 0;
-
-    document.querySelectorAll(".toggle-publish").forEach(function (t) {
-      t.checked ? publish++ : hidden++;
-    });
-
-    if (statPublish) statPublish.textContent = publish;
-    if (statHidden) statHidden.textContent = hidden;
-  }
-});
